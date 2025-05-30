@@ -9,7 +9,7 @@ import time
 @api_view(['GET'])
 def index(request):
     return Response("Hello, World!")
-
+'''
 @csrf_exempt
 @api_view(['POST'])
 def on_message(request):
@@ -27,4 +27,19 @@ def on_message(request):
         #     keyboard.write(i)
         
 
-    return JsonResponse({'status': 'success','text':text}, status=200)
+    return JsonResponse({'status': 'success','text':text}, status=200)'''
+@csrf_exempt
+@api_view(['GET', 'POST'])
+def on_message(request):
+    if request.method == 'POST':
+        msg = request.data
+        user_number, user_name = msg.get("From").split(":")[1], msg.get("ProfileName")
+        text = msg.get("Body").lower()
+        print(text)
+
+        # keyboard.write(text)  # Optional: uncomment if needed
+
+        return JsonResponse({'status': 'success', 'text': text}, status=200)
+
+    # Optional: For GET requests (e.g., browser test)
+    return JsonResponse({'status': 'GET received - use POST to send message'}, status=200)
