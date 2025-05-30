@@ -1,1 +1,1 @@
-web: gunicorn proxy_project.wsgi
+web: gunicorn proxy_copy.wsgi
