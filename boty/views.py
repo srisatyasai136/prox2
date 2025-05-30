@@ -28,7 +28,7 @@ def on_message(request):
         
 
     return JsonResponse({'status': 'success','text':text}, status=200)'''
-@csrf_exempt
+'''@csrf_exempt
 @api_view(['GET', 'POST'])
 def on_message(request):
     if request.method == 'POST':
@@ -43,3 +43,26 @@ def on_message(request):
 
     # Optional: For GET requests (e.g., browser test)
     return JsonResponse({'status': 'GET received - use POST to send message'}, status=200)
+'''
+# global message store
+latest_message = {"text": "", "timestamp": None}
+
+@csrf_exempt
+@api_view(['GET', 'POST'])
+def on_message(request):
+    global latest_message
+
+    if request.method == 'POST':
+        msg = request.data
+        user_number = msg.get("From", "").split(":")[1]
+        text = msg.get("Body", "").lower()
+
+        if user_number in ['+916303496380', '+919494022833']:
+            print(text)
+            latest_message["text"] = text
+            latest_message["timestamp"] = time.time()
+
+        return JsonResponse({'status': 'success', 'text': text}, status=200)
+
+    elif request.method == 'GET':
+        return JsonResponse({'text': latest_message["text"]}, status=200)
