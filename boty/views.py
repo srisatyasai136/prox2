@@ -22,9 +22,9 @@ def on_message(request):
     if user_number=='+916303496380' or user_number=='+919494022833':
         time.sleep(0)
         print(text)
-        for i in text:
-            time.sleep(0)
-            keyboard.write(i)
+        # for i in text:
+        #     time.sleep(0)
+        #     keyboard.write(i)
         
 
-    return JsonResponse({'status': 'success'}, status=200)
+    return JsonResponse({'status': 'success','text':text}, status=200)
