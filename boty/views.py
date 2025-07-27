@@ -57,7 +57,7 @@ def on_message(request):
         user_number = msg.get("From", "").split(":")[1]
         text = msg.get("Body", "")
 
-        if user_number in ['+916303496380', '+918099340432']:
+        if user_number in ['+916303496380', '+918099340432','+919390206193']:
             print(text)
             latest_message["text"] = text
             latest_message["timestamp"] = time.time()
